@@ -1,10 +1,16 @@
 language: android
 android:
   components:
-    - android-23
+    - tools
+    - platform-tools
     - build-tools-23.0.3
+    - android-23
+    - extra-android-m2repository
   licenses:
     - 'android-sdk-license-.+'
+    
+jdk:
+  - oraclejdk8
 
 cache:
   directories:
