@@ -25,11 +25,15 @@ android {
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
     }
 }
 
 dependencies {
     compile "com.android.support:appcompat-v7:$support_version"
-
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'nl.jqno.equalsverifier:equalsverifier:2.1'
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }
