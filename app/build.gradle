@@ -1,4 +1,12 @@
+buildscript {
+    ext.kotlin_version = '1.0.2'
+    ext.support_version = '23.4.0'
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 23
@@ -15,8 +23,13 @@ android {
             minifyEnabled false
         }
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile "com.android.support:appcompat-v7:$support_version"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
