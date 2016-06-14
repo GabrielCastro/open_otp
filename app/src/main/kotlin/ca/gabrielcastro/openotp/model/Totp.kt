@@ -1,7 +1,11 @@
 package ca.gabrielcastro.openotp.model
 
 import android.support.annotation.StringDef
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 import java.util.*
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 
 /**
  * Defines all the data required to represent one Totp
@@ -41,12 +45,29 @@ data class Totp(
         /**
          * Number of digits in each token.
          */
-        val digit: Int = 6,
+        val digits: Int = 6,
         /**
          * How often the token refreshes. In seconds
          */
         val period: Int = 30
 ) {
+
+    fun calculateCode(millsSinceEpoch: Long = System.currentTimeMillis()) : Long {
+        val interval = millsSinceEpoch / 1000 / period
+
+        val mac = Mac.getInstance("HMAC" + algorithm)
+        val key = SecretKeySpec(secret, "RAW")
+        val challenge = ByteBuffer.allocate(8).order(ByteOrder.BIG_ENDIAN).putLong(interval).array()
+        mac.init(key)
+        val result = mac.doFinal(challenge)!!
+
+        val offset = result[result.size - 1].toInt() and 0xF
+
+        val longResult = ByteBuffer.wrap(result).order(ByteOrder.BIG_ENDIAN).getInt(offset) and 0x7FFFFFFF
+
+        return longResult % Math.pow(10.toDouble(), digits.toDouble()).toLong()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -62,9 +83,22 @@ data class Totp(
                 this.accountName == other.accountName &&
                 this.userAccountName == other.userAccountName &&
                 this.algorithm == other.algorithm &&
-                this.digit == other.digit &&
+                this.digits == other.digits &&
                 this.period == other.period &&
                 Arrays.equals(this.secret, other.secret)
+    }
+
+    override fun hashCode(): Int{
+        var result = uuid.hashCode()
+        result = 31 * result + issuer.hashCode()
+        result = 31 * result + userIssuer.hashCode()
+        result = 31 * result + accountName.hashCode()
+        result = 31 * result + userAccountName.hashCode()
+        result = 31 * result + algorithm.hashCode()
+        result = 31 * result + Arrays.hashCode(secret)
+        result = 31 * result + digits
+        result = 31 * result + period
+        return result
     }
 
 }
