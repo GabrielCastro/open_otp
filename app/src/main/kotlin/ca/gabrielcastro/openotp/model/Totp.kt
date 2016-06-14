@@ -46,7 +46,28 @@ data class Totp(
          * How often the token refreshes. In seconds
          */
         val period: Int = 30
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+        if (other?.javaClass != javaClass) {
+            return false
+        }
+        other as Totp
+
+        return this.uuid == other.uuid &&
+                this.issuer == other.issuer &&
+                this.userIssuer == other.userIssuer &&
+                this.accountName == other.accountName &&
+                this.userAccountName == other.userAccountName &&
+                this.algorithm == other.algorithm &&
+                this.digit == other.digit &&
+                this.period == other.period &&
+                Arrays.equals(this.secret, other.secret)
+    }
+
+}
 
 
 @StringDef(Algorithms.SHA1, Algorithms.SHA256, Algorithms.SHA512)
