@@ -27,7 +27,6 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
-        androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
 }
 
@@ -39,17 +38,12 @@ dependencies {
     compile 'commons-codec:commons-codec:1.10'
 }
 
-// androidTestCompile
-dependencies {
-    androidTestCompile 'junit:junit:4.12'
-    androidTestCompile 'org.assertj:assertj-core:2.4.1'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile "com.android.support:support-annotations:$support_version"
-}
-
 // testCompile
 dependencies {
     testCompile 'junit:junit:4.12'
-    testCompile 'nl.jqno.equalsverifier:equalsverifier:2.1'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testCompile 'nl.jqno.equalsverifier:equalsverifier:2.1'
+
+    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.assertj:assertj-core:2.4.1'
 }

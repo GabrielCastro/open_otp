@@ -1,8 +1,17 @@
 package ca.gabrielcastro.openotp.model
 
+import ca.gabrielcastro.openotp.BuildConfig
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricGradleTestRunner
+import org.robolectric.annotation.Config
 
+@RunWith(RobolectricGradleTestRunner::class)
+@Config(
+        constants = BuildConfig::class,
+        sdk = intArrayOf(17)
+)
 class TotpUriTests {
 
     @Test
