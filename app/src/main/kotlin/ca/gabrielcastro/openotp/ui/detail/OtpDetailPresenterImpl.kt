@@ -2,6 +2,7 @@ package ca.gabrielcastro.openotp.ui.detail
 
 import ca.gabrielcastro.openotp.db.Database
 import rx.Subscription
+import java.util.*
 import javax.inject.Inject
 
 class OtpDetailPresenterImpl @Inject constructor(
@@ -22,7 +23,7 @@ class OtpDetailPresenterImpl @Inject constructor(
             .subscribe {
                 view.showAccountName(it.userAccountName)
                 view.showIssuer(it.userIssuer)
-                view.showCode(it.uuid)
+                view.showCode(String.format(Locale.CANADA, "%0${it.digits}d", it.calculateCode()))
             }
     }
 
