@@ -23,7 +23,9 @@ class OtpListActivity : BaseActivity(), ListContract.View {
         App.component(this).listComponent.inject(this)
         presenter.init(this)
 
-        otp_list_recycler.adapter = Adapter()
+        otp_list_recycler.adapter = Adapter { item ->
+            presenter.itemSelected(item)
+        }
     }
 
     override fun onResume() {
@@ -44,13 +46,18 @@ class OtpListActivity : BaseActivity(), ListContract.View {
 
 }
 
-private class Holder(parent: ViewGroup) : RecyclerView.ViewHolder(
+
+private class Holder(
+        parent: ViewGroup,
+        val listener: (ListContract.ListItem) -> Unit
+)
+: RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.otp_list_item, parent, false)
 ) {
 
     init {
         itemView.otp_item_card.setOnClickListener {
-            //
+            listener(item!!)
         }
     }
 
@@ -63,7 +70,7 @@ private class Holder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
 }
 
-private class Adapter : RecyclerView.Adapter<Holder>() {
+private class Adapter(val listener: (ListContract.ListItem) -> Unit) : RecyclerView.Adapter<Holder>() {
 
     var items: List<ListContract.ListItem> = Collections.emptyList()
 
@@ -72,7 +79,7 @@ private class Adapter : RecyclerView.Adapter<Holder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        return Holder(parent)
+        return Holder(parent, listener)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
