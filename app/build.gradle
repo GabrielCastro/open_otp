@@ -27,6 +27,8 @@ android {
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        debug.java.srcDirs += 'src/debug/kotlin'
+        release.java.srcDirs += 'src/release/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
     }
 }
@@ -50,7 +52,12 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.5'
 }
 
-// testCompile
+// debug compile
+dependencies {
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+}
+
+// test compile
 dependencies {
     testCompile 'junit:junit:4.12'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"

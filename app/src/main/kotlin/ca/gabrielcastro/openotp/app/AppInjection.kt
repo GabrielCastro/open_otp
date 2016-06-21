@@ -28,10 +28,13 @@ class AppModule(
 @Singleton
 @Component(modules = arrayOf(
         AppModule::class,
-        DatabaseModule::class
+        DatabaseModule::class,
+        InitializerModule::class
 ))
 interface AppComponent {
-    val db: Database
 
     val listComponent: OtpListComponent
+
+    fun inject(app: App)
+
 }
