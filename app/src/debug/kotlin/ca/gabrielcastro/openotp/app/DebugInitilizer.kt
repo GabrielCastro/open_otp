@@ -5,6 +5,7 @@ import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import dagger.Module
 import dagger.Provides
+import timber.log.Timber
 
 private fun isRoboUnitTest() : Boolean {
     return "robolectric".equals(Build.FINGERPRINT);
@@ -12,6 +13,7 @@ private fun isRoboUnitTest() : Boolean {
 
 class DebugInitializer : Initializer {
     override fun init(app: App) {
+        Timber.plant(Timber.DebugTree())
         if (isRoboUnitTest()) {
             return
         }

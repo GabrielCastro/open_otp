@@ -4,6 +4,7 @@ import android.util.Log
 import ca.gabrielcastro.openotp.db.Database
 import ca.gabrielcastro.openotp.rx.ioAndMain
 import rx.Subscription
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -35,7 +36,7 @@ internal class ListPresenterImpl @Inject constructor(
     }
 
     override fun itemSelected(item: ListContract.ListItem) {
-        Log.e("ss", "selected $item")
+        Timber.i("selected totp: $item")
     }
 
 }
