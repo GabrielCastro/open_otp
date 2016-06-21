@@ -3,9 +3,10 @@ package ca.gabrielcastro.openotp.ui.list
 import ca.gabrielcastro.openotp.db.Database
 import ca.gabrielcastro.openotp.rx.ioAndMain
 import rx.Subscription
+import javax.inject.Inject
 
 
-internal class ListPresenterImpl(
+internal class ListPresenterImpl @Inject constructor(
         val database: Database
 ) : ListContract.Presenter {
 
