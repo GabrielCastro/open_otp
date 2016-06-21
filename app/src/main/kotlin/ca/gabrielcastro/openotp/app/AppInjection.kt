@@ -1,7 +1,6 @@
 package ca.gabrielcastro.openotp.app
 
 import android.content.Context
-import ca.gabrielcastro.openotp.db.Database
 import ca.gabrielcastro.openotp.db.DatabaseModule
 import ca.gabrielcastro.openotp.ui.list.OtpListComponent
 import dagger.Component
