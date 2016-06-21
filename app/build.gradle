@@ -67,3 +67,10 @@ dependencies {
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.assertj:assertj-core:2.4.1'
 }
+
+// android test compile
+dependencies {
+    androidTestCompile "com.android.support:support-annotations:$support_version"
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+}
