@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import ca.gabrielcastro.openotp.R
 import ca.gabrielcastro.openotp.app.App
 import ca.gabrielcastro.openotp.ui.base.BaseActivity
@@ -42,6 +43,10 @@ class OtpListActivity : BaseActivity(), ListContract.View {
         val adapter = otp_list_recycler.adapter as Adapter
         adapter.items = items
         adapter.notifyDataSetChanged()
+    }
+
+    override fun showDetailForId(id: String) {
+        Toast.makeText(this, "$id", Toast.LENGTH_SHORT).show()
     }
 
 }

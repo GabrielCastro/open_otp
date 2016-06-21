@@ -4,6 +4,7 @@ interface ListContract {
 
     interface View {
         fun showItems(items: List<ListItem>)
+        fun showDetailForId(id: String)
     }
 
     interface Presenter {

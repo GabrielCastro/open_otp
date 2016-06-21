@@ -37,6 +37,7 @@ internal class ListPresenterImpl @Inject constructor(
 
     override fun itemSelected(item: ListContract.ListItem) {
         Timber.i("selected totp: $item")
+        view.showDetailForId(item.id)
     }
 
 }
