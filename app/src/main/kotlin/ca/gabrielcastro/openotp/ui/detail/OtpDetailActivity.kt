@@ -32,6 +32,16 @@ class OtpDetailActivity : BaseActivity(), OtpDetailContract.View {
         presenter.init(this, id)
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.pause()
+    }
+
     override fun showIssuer(issuer: String) {
         otp_detail_issuer.text = issuer
     }
