@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import ca.gabrielcastro.openotp.R
 import ca.gabrielcastro.openotp.app.App
+import ca.gabrielcastro.openotp.ext.start
 import ca.gabrielcastro.openotp.ui.base.BaseActivity
+import ca.gabrielcastro.openotp.ui.detail.OtpDetailActivity
 import kotlinx.android.synthetic.main.otp_list_activity.*
 import kotlinx.android.synthetic.main.otp_list_item.view.*
 import java.util.*
@@ -46,7 +48,7 @@ class OtpListActivity : BaseActivity(), ListContract.View {
     }
 
     override fun showDetailForId(id: String) {
-        Toast.makeText(this, "$id", Toast.LENGTH_SHORT).show()
+        OtpDetailActivity.intent(this, id).start(this)
     }
 
 }

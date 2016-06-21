@@ -10,6 +10,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".ui.list.OtpListActivity" />
+        <activity android:name=".ui.detail.OtpDetailActivity" />
 
         <activity-alias
             android:name=".Main"
