@@ -31,6 +31,9 @@ android {
         release.java.srcDirs += 'src/release/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
     }
+    lintOptions {
+        warningsAsErrors true
+    }
 }
 
 kapt {
