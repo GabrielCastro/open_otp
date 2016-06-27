@@ -1,4 +1,4 @@
-package ca.gabrielcastro.openotp
+package ca.gabrielcastro.openotp.testutils
 
 import ca.gabrielcastro.openotp.db.Database
 import ca.gabrielcastro.openotp.model.Totp

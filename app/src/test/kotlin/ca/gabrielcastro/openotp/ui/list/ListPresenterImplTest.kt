@@ -1,13 +1,17 @@
 package ca.gabrielcastro.openotp.ui.list
 
-import android.app.Instrumentation
-import ca.gabrielcastro.openotp.FakeDatabase
+import ca.gabrielcastro.openotp.testutils.FakeDatabase
+import ca.gabrielcastro.openotp.testutils.RxAndroidRule
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.mock
 
 
 class ListPresenterImplTest {
 
+    @Rule
+    @JvmField
+    val rxRule = RxAndroidRule()
 
     @Test
     fun showsList() {
