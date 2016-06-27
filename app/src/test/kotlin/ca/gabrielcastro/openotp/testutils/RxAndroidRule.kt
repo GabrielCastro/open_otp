@@ -6,42 +6,51 @@ import org.junit.runners.model.Statement
 import rx.Scheduler
 import rx.android.plugins.RxAndroidPlugins
 import rx.android.plugins.RxAndroidSchedulersHook
+import rx.plugins.RxJavaPlugins
+import rx.plugins.RxJavaSchedulersHook
 import rx.schedulers.Schedulers
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 
 class RxAndroidRule : TestRule {
 
-    private var executor: ExecutorService? = null
+    private fun setSchedulers() {
+        val immediate = Schedulers.immediate()
 
-    fun waitForRunning() {
-        val f = executor!!.submit {
-            // nothing
-        }
-        f.get()
+        RxJavaPlugins.getInstance().registerSchedulersHook(object : RxJavaSchedulersHook() {
+            override fun getIOScheduler(): Scheduler? {
+                return immediate
+            }
+
+            override fun getComputationScheduler(): Scheduler? {
+                return immediate
+            }
+
+            override fun getNewThreadScheduler(): Scheduler? {
+                return immediate
+            }
+        })
+
+        RxAndroidPlugins.getInstance().registerSchedulersHook(object : RxAndroidSchedulersHook() {
+            override fun getMainThreadScheduler(): Scheduler {
+                return immediate
+            }
+        })
+    }
+
+    private fun resetSchedulers() {
+        RxJavaPlugins.getInstance().reset()
+        RxAndroidPlugins.getInstance().reset()
     }
 
     override fun apply(base: Statement, description: Description?): Statement? {
         return object : Statement() {
             override fun evaluate() {
-                executor = Executors.newSingleThreadScheduledExecutor()
-                val main = Schedulers.from(executor)
-
-                RxAndroidPlugins.getInstance().registerSchedulersHook(object : RxAndroidSchedulersHook() {
-                    override fun getMainThreadScheduler(): Scheduler {
-                        return main
-                    }
-                })
-
-                base.evaluate()
-
-                RxAndroidPlugins.getInstance().reset()
-                Schedulers.reset()
-                executor!!.shutdown()
-                executor!!.awaitTermination(1, TimeUnit.SECONDS)
-                executor = null
+                setSchedulers()
+                try {
+                    base.evaluate()
+                } finally {
+                    resetSchedulers()
+                }
             }
         }
     }

@@ -37,7 +37,6 @@ class DetailPresenterImplTest {
         presenter.init(view, firstId)
 
         presenter.resume()
-        rxRule.waitForRunning()
 
         verify(view).showAccountName("john@gmail.com")
         verify(view).showIssuer("Google Inc.")

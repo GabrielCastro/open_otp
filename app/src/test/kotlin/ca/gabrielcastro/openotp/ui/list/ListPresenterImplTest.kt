@@ -33,8 +33,6 @@ class ListPresenterImplTest {
         presenter.init(view)
         presenter.resume()
 
-        rxRule.waitForRunning()
-
         verify(view).showItems(anyListOf(ListContract.ListItem::class.java))
 
         presenter.pause()
