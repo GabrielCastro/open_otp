@@ -7,16 +7,26 @@ import rx.Scheduler
 import rx.android.plugins.RxAndroidPlugins
 import rx.android.plugins.RxAndroidSchedulersHook
 import rx.schedulers.Schedulers
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 
 class RxAndroidRule : TestRule {
 
+    private var executor: ExecutorService? = null
+
+    fun waitForRunning() {
+        val f = executor!!.submit {
+            // nothing
+        }
+        f.get()
+    }
+
     override fun apply(base: Statement, description: Description?): Statement? {
         return object : Statement() {
             override fun evaluate() {
-                val executor = Executors.newSingleThreadScheduledExecutor()
+                executor = Executors.newSingleThreadScheduledExecutor()
                 val main = Schedulers.from(executor)
 
                 RxAndroidPlugins.getInstance().registerSchedulersHook(object : RxAndroidSchedulersHook() {
@@ -27,9 +37,10 @@ class RxAndroidRule : TestRule {
 
                 base.evaluate()
 
-                executor.shutdown()
-                executor.awaitTermination(1, TimeUnit.SECONDS)
                 RxAndroidPlugins.getInstance().reset()
+                executor!!.shutdown()
+                executor!!.awaitTermination(1, TimeUnit.SECONDS)
+                executor = null
             }
         }
     }
