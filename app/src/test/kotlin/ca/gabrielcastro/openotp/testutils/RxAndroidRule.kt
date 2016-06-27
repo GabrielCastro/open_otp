@@ -38,6 +38,7 @@ class RxAndroidRule : TestRule {
                 base.evaluate()
 
                 RxAndroidPlugins.getInstance().reset()
+                Schedulers.reset()
                 executor!!.shutdown()
                 executor!!.awaitTermination(1, TimeUnit.SECONDS)
                 executor = null
