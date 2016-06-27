@@ -4,7 +4,7 @@ import ca.gabrielcastro.openotp.testutils.FakeDatabase
 import ca.gabrielcastro.openotp.testutils.RxAndroidRule
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mockito.mock
+import org.mockito.Mockito.*
 
 
 class ListPresenterImplTest {
@@ -23,5 +23,8 @@ class ListPresenterImplTest {
         presenter.init(view)
         presenter.resume()
 
+        verify(view).showItems(anyListOf(ListContract.ListItem::class.java))
+
+        presenter.pause()
     }
 }

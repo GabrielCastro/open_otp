@@ -1,6 +1,5 @@
 package ca.gabrielcastro.openotp.ui.list
 
-import android.util.Log
 import ca.gabrielcastro.openotp.db.Database
 import ca.gabrielcastro.openotp.rx.ioAndMain
 import rx.Subscription
