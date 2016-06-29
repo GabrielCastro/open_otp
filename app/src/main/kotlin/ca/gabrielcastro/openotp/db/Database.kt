@@ -7,4 +7,5 @@ import rx.Observable
 interface Database {
     fun list() : Observable<List<Totp>>
     fun findById(id: String) : Observable<Totp>
+    fun add(totp: Totp) : Observable<Unit>
 }

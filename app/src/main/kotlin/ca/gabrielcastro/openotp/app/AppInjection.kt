@@ -4,6 +4,7 @@ import android.content.Context
 import ca.gabrielcastro.openotp.db.DatabaseModule
 import ca.gabrielcastro.openotp.ui.detail.OtpDetailComponent
 import ca.gabrielcastro.openotp.ui.list.OtpListComponent
+import ca.gabrielcastro.openotp.ui.scan.ScanComponent
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -35,7 +36,7 @@ interface AppComponent {
 
     val listComponent: OtpListComponent
     val detailComponent: OtpDetailComponent
-
+    val scanComponent: ScanComponent
     fun inject(app: App)
 
 }
