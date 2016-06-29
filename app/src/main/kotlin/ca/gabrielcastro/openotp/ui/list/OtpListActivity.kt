@@ -10,6 +10,7 @@ import ca.gabrielcastro.openotp.app.App
 import ca.gabrielcastro.openotp.ext.start
 import ca.gabrielcastro.openotp.ui.base.BaseActivity
 import ca.gabrielcastro.openotp.ui.detail.OtpDetailActivity
+import ca.gabrielcastro.openotp.ui.scan.BarcodeScanActivity
 import kotlinx.android.synthetic.main.otp_list_activity.*
 import kotlinx.android.synthetic.main.otp_list_item.view.*
 import java.util.*
@@ -28,6 +29,9 @@ class OtpListActivity : BaseActivity(), ListContract.View {
 
         otp_list_recycler.adapter = Adapter { item ->
             presenter.itemSelected(item)
+        }
+        otp_list_add.setOnClickListener {
+            presenter.addNewTotp()
         }
     }
 
@@ -51,6 +55,9 @@ class OtpListActivity : BaseActivity(), ListContract.View {
         OtpDetailActivity.intent(this, id).start(this)
     }
 
+    override fun startScanning() {
+        BarcodeScanActivity.intent(this).start(this)
+    }
 }
 
 

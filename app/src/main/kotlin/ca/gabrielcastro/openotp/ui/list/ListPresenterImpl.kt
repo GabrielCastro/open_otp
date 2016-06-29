@@ -39,4 +39,8 @@ internal class ListPresenterImpl @Inject constructor(
         view.showDetailForId(item.id)
     }
 
+    override fun addNewTotp() {
+        Timber.i("add new totp clicked")
+        view.startScanning()
+    }
 }
