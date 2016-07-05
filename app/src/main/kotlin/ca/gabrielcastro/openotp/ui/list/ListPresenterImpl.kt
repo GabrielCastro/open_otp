@@ -43,4 +43,10 @@ internal class ListPresenterImpl @Inject constructor(
         Timber.i("add new totp clicked")
         view.startScanning()
     }
+
+    override fun invalidCodeScanned() {
+        Timber.i("invalid code scanned")
+        view.showTemporaryMessage("Invalid Code Scanned")
+    }
+
 }

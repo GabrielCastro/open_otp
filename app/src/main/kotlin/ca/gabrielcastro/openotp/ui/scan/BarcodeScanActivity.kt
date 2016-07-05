@@ -1,5 +1,6 @@
 package ca.gabrielcastro.openotp.ui.scan
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,18 +10,22 @@ import ca.gabrielcastro.openotp.model.totpFrom
 import ca.gabrielcastro.openotp.ui.base.BaseActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import timber.log.Timber
+import javax.inject.Inject
 
 class BarcodeScanActivity : BaseActivity() {
     companion object {
+        const val RESULT_INVALID_CODE = Activity.RESULT_FIRST_USER + 1
         fun intent(context: Context): Intent {
             return Intent(context, BarcodeScanActivity::class.java)
         }
     }
 
+    @Inject
     lateinit var presenter: ScanContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setResult(RESULT_CANCELED)
         App.component(this).scanComponent.inject(this)
         val integrator = IntentIntegrator(this)
         integrator.setPrompt("Scan the verification code")
@@ -42,9 +47,11 @@ class BarcodeScanActivity : BaseActivity() {
         if (totp != null) {
             Timber.e("Found totp: $totp")
             presenter.addTotp(totp)
+            setResult(RESULT_OK)
         } else {
             Timber.e("Invalid totp")
             presenter.invalidScan()
+            setResult(RESULT_INVALID_CODE)
         }
         finish()
     }

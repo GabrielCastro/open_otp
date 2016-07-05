@@ -1,6 +1,8 @@
 package ca.gabrielcastro.openotp.ui.list
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import android.widget.Toast
 import ca.gabrielcastro.openotp.R
 import ca.gabrielcastro.openotp.app.App
 import ca.gabrielcastro.openotp.ext.start
+import ca.gabrielcastro.openotp.ext.startForResult
 import ca.gabrielcastro.openotp.ui.base.BaseActivity
 import ca.gabrielcastro.openotp.ui.detail.OtpDetailActivity
 import ca.gabrielcastro.openotp.ui.scan.BarcodeScanActivity
@@ -17,6 +20,10 @@ import java.util.*
 import javax.inject.Inject
 
 class OtpListActivity : BaseActivity(), ListContract.View {
+
+    companion object {
+        const val SCAN_REQ_CODE = 11
+    }
 
     @set:Inject
     lateinit var presenter: ListContract.Presenter
@@ -56,7 +63,24 @@ class OtpListActivity : BaseActivity(), ListContract.View {
     }
 
     override fun startScanning() {
-        BarcodeScanActivity.intent(this).start(this)
+        BarcodeScanActivity.intent(this).startForResult(this, SCAN_REQ_CODE)
+    }
+
+    override fun showTemporaryMessage(text: CharSequence) {
+        val sb = Snackbar.make(main_view, text, Snackbar.LENGTH_LONG)
+        sb.setAction("Try Again") {
+            presenter.addNewTotp()
+        }
+        sb.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SCAN_REQ_CODE) {
+            if (resultCode == BarcodeScanActivity.RESULT_INVALID_CODE) {
+                presenter.invalidCodeScanned()
+            }
+        }
     }
 }
 

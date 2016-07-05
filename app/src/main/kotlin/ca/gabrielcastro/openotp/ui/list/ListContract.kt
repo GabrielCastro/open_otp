@@ -6,6 +6,7 @@ interface ListContract {
         fun showItems(items: List<ListItem>)
         fun showDetailForId(id: String)
         fun startScanning()
+        fun showTemporaryMessage(text: CharSequence)
     }
 
     interface Presenter {
@@ -14,6 +15,7 @@ interface ListContract {
         fun pause()
         fun itemSelected(item: ListItem)
         fun addNewTotp()
+        fun invalidCodeScanned()
     }
 
     data class ListItem(val id: String, val issuer: String, val account: String)
