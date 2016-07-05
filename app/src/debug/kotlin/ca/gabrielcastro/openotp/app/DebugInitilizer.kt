@@ -2,6 +2,7 @@ package ca.gabrielcastro.openotp.app
 
 import android.os.Build
 import com.facebook.stetho.Stetho
+import com.facebook.stetho.timber.StethoTree
 import com.squareup.leakcanary.LeakCanary
 import dagger.Module
 import dagger.Provides
@@ -17,8 +18,12 @@ class DebugInitializer : Initializer {
         if (isRoboUnitTest()) {
             return
         }
+        if (LeakCanary.isInAnalyzerProcess(app)) {
+            return
+        }
         LeakCanary.install(app)
         Stetho.initializeWithDefaults(app)
+        Timber.plant(StethoTree())
     }
 }
 
