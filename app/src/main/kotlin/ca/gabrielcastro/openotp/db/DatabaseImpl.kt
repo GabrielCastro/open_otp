@@ -49,15 +49,14 @@ internal class DatabaseImpl @Inject constructor(
     }
 
 
-    override fun findById(id: String): Observable<Totp> {
+    override fun findById(id: String): Observable<Totp?> {
         val realm = Realm.getInstance(realmConfig)
         return realm.where(TotpEntry::class.java)
                 .equalTo("uuid", id)
                 .findAllAsync()
                 .asObservable()
                 .map { if (it.size > 0) it[0] else null }
-                .map { it!! }
-                .map { it.toModel() }
+                .map { it?.toModel() }
                 .subscribeOn(AndroidSchedulers.mainThread())
     }
 

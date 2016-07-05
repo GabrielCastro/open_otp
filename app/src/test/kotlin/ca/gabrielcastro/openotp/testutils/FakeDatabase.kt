@@ -20,7 +20,7 @@ class FakeDatabase @Inject constructor() : Database {
                 .ioAndMain()
     }
 
-    override fun findById(id: String): Observable<Totp> {
+    override fun findById(id: String): Observable<Totp?> {
         return Observable.fromCallable {
             val filtered = items.filter { it.uuid == id }
             return@fromCallable filtered[0]
