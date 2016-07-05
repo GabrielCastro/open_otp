@@ -4,7 +4,8 @@ import ca.gabrielcastro.openotp.db.Database
 import ca.gabrielcastro.openotp.model.observeCodeString
 import ca.gabrielcastro.openotp.rx.ioAndMain
 import rx.Subscription
-import java.util.*
+import rx.plugins.RxJavaObservableExecutionHook
+import rx.plugins.RxJavaPlugins
 import javax.inject.Inject
 
 class OtpDetailPresenterImpl @Inject constructor(
@@ -14,7 +15,6 @@ class OtpDetailPresenterImpl @Inject constructor(
     lateinit var id: String
     lateinit var view: OtpDetailContract.View
     private var sub: Subscription? = null
-    private var sub2: Subscription? = null
 
     override fun init(view: OtpDetailContract.View, id: String) {
         this.id = id
@@ -22,12 +22,12 @@ class OtpDetailPresenterImpl @Inject constructor(
     }
 
     override fun resume() {
-        sub = database.findById(id)
-                .subscribe {
-                    view.showAccountName(it.userAccountName)
-                    view.showIssuer(it.userIssuer)
-                }
-        sub2 = database.findById(id)
+        val findOb = database.findById(id).publish()
+        findOb.subscribe {
+            view.showAccountName(it.userAccountName)
+            view.showIssuer(it.userIssuer)
+        }
+        findOb
                 .flatMap {
                     it.observeCodeString()
                             .ioAndMain()
@@ -36,10 +36,10 @@ class OtpDetailPresenterImpl @Inject constructor(
                 .subscribe {
                     view.showCode(it)
                 }
+        sub = findOb.connect()
     }
 
     override fun pause() {
         sub?.unsubscribe()
-        sub2?.unsubscribe()
     }
 }

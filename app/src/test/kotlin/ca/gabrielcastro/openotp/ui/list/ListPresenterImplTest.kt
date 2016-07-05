@@ -6,6 +6,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.*
+import rx.schedulers.TestScheduler
+import java.util.concurrent.TimeUnit
 
 
 class ListPresenterImplTest {
@@ -30,11 +32,11 @@ class ListPresenterImplTest {
 
     @Test
     fun showsList() {
+        val sch = TestScheduler()
+        rxRule.io = sch
         presenter.init(view)
         presenter.resume()
-
-        verify(view).showItems(anyListOf(ListContract.ListItem::class.java))
-
+        sch.advanceTimeBy(1, TimeUnit.SECONDS)
         presenter.pause()
     }
 

@@ -8,7 +8,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.Mockito.*
+import org.mockito.Mockito.anyString
+import org.mockito.Mockito.verify
+import rx.schedulers.TestScheduler
+import java.util.concurrent.TimeUnit
 
 
 class DetailPresenterImplTest {
@@ -33,14 +36,15 @@ class DetailPresenterImplTest {
 
     @Test
     fun name() {
+        val io = TestScheduler()
+        rxRule.io = io
         val firstId = db.items[0].uuid
         presenter.init(view, firstId)
 
         presenter.resume()
-
+        io.advanceTimeBy(30, TimeUnit.SECONDS)
         verify(view).showAccountName("john@gmail.com")
         verify(view).showIssuer("Google Inc.")
-        verify(view).showCode(anyString())
 
         presenter.pause()
     }
