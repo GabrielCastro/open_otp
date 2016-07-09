@@ -3,6 +3,7 @@ package ca.gabrielcastro.openotp.ui.detail
 import ca.gabrielcastro.openotp.db.Database
 import ca.gabrielcastro.openotp.model.observeCodeString
 import ca.gabrielcastro.openotp.rx.ioAndMain
+import rx.Observable
 import rx.Subscription
 import rx.plugins.RxJavaObservableExecutionHook
 import rx.plugins.RxJavaPlugins
@@ -24,12 +25,12 @@ class OtpDetailPresenterImpl @Inject constructor(
     override fun resume() {
         val findOb = database.findById(id).publish()
         findOb.subscribe {
-            view.showAccountName(it.userAccountName)
-            view.showIssuer(it.userIssuer)
+            view.showAccountName(it?.userAccountName ?: "")
+            view.showIssuer(it?.userIssuer ?: "")
         }
         findOb
                 .flatMap {
-                    it.observeCodeString()
+                    (it?.observeCodeString() ?: Observable.empty())
                             .ioAndMain()
                 }
                 .ioAndMain()
