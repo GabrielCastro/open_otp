@@ -6,6 +6,10 @@ interface BasePresenter {
     fun pause()
 }
 
+interface BaseView {
+    fun finish(ok :Boolean)
+}
+
 abstract class BasePresenterImpl : BasePresenter {
     override fun resume() {}
     override fun pause() {}

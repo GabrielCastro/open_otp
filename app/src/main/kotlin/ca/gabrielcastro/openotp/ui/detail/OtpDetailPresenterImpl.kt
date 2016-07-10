@@ -6,8 +6,6 @@ import ca.gabrielcastro.openotp.model.observeCodeString
 import ca.gabrielcastro.openotp.rx.ioAndMain
 import rx.Observable
 import rx.Subscription
-import rx.plugins.RxJavaObservableExecutionHook
-import rx.plugins.RxJavaPlugins
 import javax.inject.Inject
 
 class OtpDetailPresenterImpl @Inject constructor(
@@ -28,6 +26,14 @@ class OtpDetailPresenterImpl @Inject constructor(
     override fun edit() {
         val totp = this.totp ?: return
         view.startEdit(totp.uuid, totp.userIssuer, totp.userAccountName)
+    }
+
+    override fun delete() {
+        database.delete(id)
+            .ioAndMain()
+            .subscribe {
+                view.finish(it)
+            }
     }
 
     override fun resume() {

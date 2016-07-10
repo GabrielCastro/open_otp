@@ -1,12 +1,13 @@
 package ca.gabrielcastro.openotp.ui.base
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import timber.log.Timber
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), BaseView {
 
-    var basePresenter :BasePresenter? = null
+    var basePresenter: BasePresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,4 +29,12 @@ abstract class BaseActivity : AppCompatActivity() {
         Timber.tag("Activity").i("onDestroy: ${javaClass.simpleName}")
     }
 
+    override fun finish(ok: Boolean) {
+        if (ok) {
+            setResult(Activity.RESULT_OK)
+        } else {
+            setResult(Activity.RESULT_CANCELED)
+        }
+        finish()
+    }
 }

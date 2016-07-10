@@ -9,4 +9,5 @@ interface Database {
     fun findById(id: String) : Observable<Totp?>
     fun add(totp: Totp) : Observable<Unit>
     fun update(id: String, newUserAccountName: String, newUserIssuer: String) : Observable<Boolean>
+    fun delete(id: String) : Observable<Boolean>
 }

@@ -90,6 +90,26 @@ internal class DatabaseImpl @Inject constructor(
             return@fromCallable found
         }
     }
+
+    override fun delete(id: String): Observable<Boolean> {
+        Timber.i("deleting $id")
+        return Observable.fromCallable {
+            var removedOne = false
+            realmConfig.useTx {
+                it.where(TotpEntry::class.java)
+                    .equalTo("uuid", id)
+                    .findAll()
+                    .forEach {
+                        it.deleteFromRealm()
+                        removedOne = true
+                    }
+            }
+            if (!removedOne) {
+                Timber.w("Unable to find $id to delete")
+            }
+            return@fromCallable removedOne
+        }
+    }
 }
 
 open class TotpEntry(

@@ -1,9 +1,11 @@
 package ca.gabrielcastro.openotp.ui.detail
 
+import ca.gabrielcastro.openotp.ui.base.BaseView
+
 
 interface OtpDetailContract {
 
-    interface View {
+    interface View : BaseView {
         fun showIssuer(issuer: String)
         fun showAccountName(accountName: String)
         fun showCode(code: String)
@@ -13,6 +15,7 @@ interface OtpDetailContract {
     interface Presenter {
         fun init(view: View, id: String)
         fun edit()
+        fun delete()
         fun resume()
         fun pause()
     }

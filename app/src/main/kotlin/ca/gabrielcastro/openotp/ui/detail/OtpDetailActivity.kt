@@ -47,6 +47,7 @@ class OtpDetailActivity : BaseActivity(), OtpDetailContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_edit -> presenter.edit()
+            R.id.action_delete -> presenter.delete()
             else -> super.onOptionsItemSelected(item)
         }
         return true
