@@ -60,7 +60,8 @@ internal class ListPresenterImpl @Inject constructor(
 }
 
 val iconMap = listOf(
-        Regex(".*Google.*", RegexOption.IGNORE_CASE) to R.drawable.issuer_google_36
+        Regex(".*Google.*", RegexOption.IGNORE_CASE) to R.drawable.issuer_google_36,
+        Regex(".*Slack.*", RegexOption.IGNORE_CASE) to R.drawable.issuer_slack_36
 )
 
 fun iconForIssuer(issuerName: String) : Int? {
