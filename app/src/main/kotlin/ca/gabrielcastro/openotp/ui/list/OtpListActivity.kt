@@ -14,6 +14,7 @@ import ca.gabrielcastro.openotp.ext.startForResult
 import ca.gabrielcastro.openotp.ui.base.BaseActivity
 import ca.gabrielcastro.openotp.ui.detail.OtpDetailActivity
 import ca.gabrielcastro.openotp.ui.scan.BarcodeScanActivity
+import kotlinx.android.synthetic.main.opt_list_item_card_content.view.*
 import kotlinx.android.synthetic.main.otp_list_activity.*
 import kotlinx.android.synthetic.main.otp_list_item.view.*
 import java.util.*
