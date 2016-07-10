@@ -16,6 +16,7 @@ private fun isRoboUnitTest(): Boolean {
 class DebugInitializer : Initializer {
     override fun init(app: App) {
         Timber.plant(Timber.DebugTree())
+        Timber.d("init started")
         if (isRoboUnitTest()) {
             return
         }
@@ -23,8 +24,7 @@ class DebugInitializer : Initializer {
             return
         }
         LeakCanary.install(app)
-        Stetho.initializeWithDefaults(app)
-
+        Timber.d("leak canary done")
         Stetho.initialize(
                 Stetho.newInitializerBuilder(app)
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(app))

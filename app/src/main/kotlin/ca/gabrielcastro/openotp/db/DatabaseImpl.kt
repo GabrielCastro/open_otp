@@ -15,6 +15,7 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -61,6 +62,7 @@ internal class DatabaseImpl @Inject constructor(
     }
 
     override fun add(totp: Totp): Observable<Unit> {
+        Timber.i("add: $totp")
         return Observable.fromCallable {
             realmConfig.useTx {
                 val entry = TotpEntry.make(totp)
@@ -68,6 +70,25 @@ internal class DatabaseImpl @Inject constructor(
             }
             return@fromCallable Unit
         }.ioAndMain()
+    }
+
+    override fun update(id: String, newUserAccountName: String, newUserIssuer: String): Observable<Boolean> {
+        Timber.i("update: id: $id, newUserAccountName: $newUserAccountName newUserIssuer: $newUserIssuer")
+        return Observable.fromCallable {
+            var found = false
+            realmConfig.useTx {
+                val one = it.where(TotpEntry::class.java)
+                    .equalTo("uuid", id)
+                    .findFirst() ?: return@useTx
+                found = true
+                one.userAccountName = newUserAccountName
+                one.userIssuer = newUserIssuer
+            }
+            if (!found) {
+                Timber.w("couldn't update $id")
+            }
+            return@fromCallable found
+        }
     }
 }
 

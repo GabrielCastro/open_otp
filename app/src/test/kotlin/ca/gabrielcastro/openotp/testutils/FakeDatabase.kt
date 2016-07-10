@@ -32,4 +32,7 @@ class FakeDatabase @Inject constructor() : Database {
         return Observable.just(Unit)
     }
 
+    override fun update(id: String, newUserAccountName: String, newUserIssuer: String): Observable<Boolean> {
+        return Observable.just(false)
+    }
 }

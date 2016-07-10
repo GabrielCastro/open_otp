@@ -8,12 +8,14 @@ interface OtpEditContract {
     interface View {
         fun setIssuer(issuer :CharSequence)
         fun setAccountName(accountName :CharSequence)
+        fun finish()
     }
 
     interface Presenter : BasePresenter {
         fun init(view: View, id: String, initialIssuer: String, initialAccount: String)
         fun issuerChanged(newIssuer :CharSequence)
         fun accountNameChanged(newAccountName :CharSequence)
+        fun save()
     }
 
 }
