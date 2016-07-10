@@ -40,6 +40,8 @@ android {
     }
 }
 
+apply from: "$rootProject.projectDir/keys/key_store.gradle"
+
 kapt {
     generateStubs = true
 }

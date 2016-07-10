@@ -1,0 +1,18 @@
+def passwordFileName = "$rootProject.projectDir/keys/_key_store_passwords.gradle"
+def sampleFileName = "$rootProject.projectDir/keys/_key_store_passwords.sample.gradle"
+
+def passwordFile = new File(passwordFileName)
+
+if (passwordFile.exists()) {
+    apply from: passwordFile
+} else {
+    logger.info("Unable to find keystore password file")
+    logger.info("File expected at:\n\t${sampleFileName}\n sample file at:\n\t${passwordFileName}")
+    android {
+        buildTypes {
+            release {
+                signingConfig null
+            }
+        }
+    }
+}

@@ -5,3 +5,4 @@
 .DS_Store
 /build
 /captures
+keys/_key_store_passwords.gradle
