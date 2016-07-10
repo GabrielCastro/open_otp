@@ -4,11 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import ca.gabrielcastro.openotp.R
-import ca.gabrielcastro.openotp.model.Totp
+import ca.gabrielcastro.openotp.app.App
 import ca.gabrielcastro.openotp.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_otp_edit.*
+import javax.inject.Inject
 
-class OtpEditActivity : BaseActivity() {
+class OtpEditActivity : BaseActivity(), OtpEditContract.View {
 
     companion object {
         const val EXTRA_ID = "id"
@@ -22,17 +23,26 @@ class OtpEditActivity : BaseActivity() {
         }
     }
 
+    @Inject
+    lateinit var presenter: OtpEditContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp_edit)
-
-        val account = intent.getStringExtra(EXTRA_ACCOUNT)
-        val issuer = intent.getStringExtra(EXTRA_ISSUER)
-
-        otp_edit_account.setText(account)
-        otp_edit_issuer.setText(issuer)
-
+        App.component(this).editComponent.inject(this)
+        val id = intent.getStringExtra(EXTRA_ID)!!
+        val account = intent.getStringExtra(EXTRA_ACCOUNT) ?: ""
+        val issuer = intent.getStringExtra(EXTRA_ISSUER) ?: ""
+        basePresenter = presenter
+        presenter.init(this, id, issuer, account)
     }
 
+    override fun setIssuer(issuer: CharSequence) {
+        otp_edit_issuer.setText(issuer)
+    }
+
+    override fun setAccountName(accountName: CharSequence) {
+        otp_edit_account.setText(accountName)
+    }
 
 }
