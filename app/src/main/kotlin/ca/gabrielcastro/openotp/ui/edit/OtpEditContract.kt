@@ -8,7 +8,7 @@ interface OtpEditContract {
     interface View {
         fun setIssuer(issuer :CharSequence)
         fun setAccountName(accountName :CharSequence)
-        fun finish()
+        fun finish(ok :Boolean)
     }
 
     interface Presenter : BasePresenter {

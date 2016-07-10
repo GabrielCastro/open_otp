@@ -35,7 +35,7 @@ class OtpEditPresenterImpl @Inject constructor(
         database.update(id, account, issuer)
             .ioAndMain()
             .subscribe {
-                view.finish()
+                view.finish(true)
             }
     }
 }

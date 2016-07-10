@@ -1,5 +1,6 @@
 package ca.gabrielcastro.openotp.ui.edit
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -46,6 +47,7 @@ class OtpEditActivity : BaseActivity(), OtpEditContract.View {
             presenter.accountNameChanged(it)
         }
 
+        setResult(Activity.RESULT_CANCELED)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -70,4 +72,9 @@ class OtpEditActivity : BaseActivity(), OtpEditContract.View {
         otp_edit_account.setText(accountName)
     }
 
+    override fun finish(ok: Boolean) {
+        val code = if (ok) Activity.RESULT_OK else Activity.RESULT_CANCELED
+        setResult(code)
+        finish()
+    }
 }
