@@ -46,7 +46,7 @@ class OtpDetailActivity : BaseActivity(), OtpDetailContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_edit -> OtpEditActivity.intent(this, Totp(secret = ByteArrays.EMPTY, issuer = "Google", accountName = "example@gmail.com")).start(this)
+            R.id.action_edit -> presenter.edit()
             else -> super.onOptionsItemSelected(item)
         }
         return true
@@ -74,4 +74,7 @@ class OtpDetailActivity : BaseActivity(), OtpDetailContract.View {
         otp_detail_code.text = code
     }
 
+    override fun startEdit(id: String, issuer: String, account: String) {
+        OtpEditActivity.intent(this, id, account, issuer).start(this)
+    }
 }

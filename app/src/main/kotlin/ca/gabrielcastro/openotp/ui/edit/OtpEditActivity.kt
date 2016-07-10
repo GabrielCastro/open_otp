@@ -14,11 +14,11 @@ class OtpEditActivity : BaseActivity() {
         const val EXTRA_ID = "id"
         const val EXTRA_ACCOUNT = "account"
         const val EXTRA_ISSUER = "issuer"
-        fun intent(context: Context, totp: Totp): Intent {
+        fun intent(context: Context, id: String, account: String, issuer: String): Intent {
             return Intent(context, OtpEditActivity::class.java)
-                    .putExtra(EXTRA_ACCOUNT, totp.userAccountName)
-                    .putExtra(EXTRA_ISSUER, totp.userIssuer)
-                    .putExtra(EXTRA_ID, totp.uuid)
+                    .putExtra(EXTRA_ACCOUNT, account)
+                    .putExtra(EXTRA_ISSUER, issuer)
+                    .putExtra(EXTRA_ID, id)
         }
     }
 
