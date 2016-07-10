@@ -19,3 +19,15 @@ cache:
 
 script:
    - ./gradlew build --console=plain --no-daemon --continue
+
+deploy:
+  provider: script
+  # TODO upload to alpha
+  script: ./gradlew tasks --console=plain --no-daemon --continue
+  on:
+    branch: master
+
+env:
+  global:
+  - secure: QNWpJsmybVsv2MMN7dzUP6WVJeEYylrfP85o2lz7qaP1h2e+xQZd8eSl9vxOlzMpb8wAY8mqpv0sYtimo3cDmyuW/sW9bLOY1XbLjdK7uD+vmn1LVf367+CaZcf/pC0wx4Qu6OnsJ69PwPftNiKFi6w06y/lJ3daccqueLlk084nVTVzRaZnmjRs/NlWlyqC/BM+/SV44yqdKXOcSosCsEjHbNNh4poBLtWOBY6F59P4T+5W9qyIq4qPU1p0rPY5ZrpiEsdWKpHC03KBk5LQ9ULZTaySX7VtK6GK9cpjrzdXRM6+W/idK3qUfCxuXmbm4Rxijf9J33jePW403p+JspdqWZELwCOT2ywS5lWXlYQxE8c6qOyBZ2iC8htgbDafewNsQWez0kE5mc0J9ppyhNXuOeKf7lmhKuqaZ246ICPnjj/hRiqvYdneIXIrdAfniJN/0mHKR5E9gI/e44Sqyba7wD1ehClLk5ZtUv6Y/QJoPeyf17YP9X5GqKURQzRgWBL9D2yhf2qqX+r6R2VuzBUHSoUBKY4SLprtTZA4Va0Ov5ULVmQRlvc5SxMx5eSirp/Cz2dMCRAtBGBOOAq2Qpa+eg8QsNuh7BSGPZ/A+pE62qCs2H41vnnzC192XM9q6as26LvHwp/BGBKN339nWB4OxBKd3kPq9X9K/nKPlmo=
+  - secure: ow7XkFGdS28vY56EatfIbTofsx7wFW36jfj6V7V62q+0UECAmxq5N5FrkBnj2BMqxPOFcU9/yXjDDRs+ZbYETfONI8O/ZzLi/ntfYgXun8P6s8a8kqypEPc4wD9AlVMd3q9MF0qc/BibCVwpJ1vo2Ius5JWytA8d5Iygkft8G5eQbU0MZqTQokTy2EvBgLsARgT2r7TuWB2ghJKi3dT4AcJg6d0wlfQuA6Y7M8Kqoqq2jHZUs3dvtr0mKWZ06gSRza7Ekje2YQjl1bQcPZaaNOFpYR7IvS4FPo8LJlOv3trB2Qk+o+LfkAKfTi7gsfD3F+ceE5eDh4Zo0jybh2b3XcnSCp/mdaM7Dn7doM+gZfnWjBrWj0k+cWbu2HuRnAn7MyqcSbRmSNVpiwHjfpNvwDa/i4X4e8w490PpSXUMXsuaHzjCLMsl5FI0/MALxJTNMtyv+wiazCA9jQu+s6+oqR2Wx9csTam3ixH4S0MQo5yTcgaznjK/Ss/B62zWkg/py42dnMr1e2YW6i18REmeJzg8uM5vFOU0RKUd+hO1f05XsizmWzF3stt+4e5MrIWKmSR9fIvKvSqa6TJtJNgzcqfHt+fw1p0Jb4jPsUUb9VK+Ff7G5G7zJQjl9kOM1OVvezmkXRVT2U24jUmTfVhTG9cxE65lIeSXmJSol/YHuN8=
