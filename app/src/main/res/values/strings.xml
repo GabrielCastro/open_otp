@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Open Otp</string>
+
+    <string name="edit_account_name_hint">Account</string>
+    <string name="edit_issuer_hint">Issuer</string>
+
 </resources>
