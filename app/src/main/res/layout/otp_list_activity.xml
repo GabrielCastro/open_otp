@@ -11,7 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/otp_list_item" />
+        tools:listitem="@layout/otp_list_item"
+        tools:visibility="visible"
+        android:paddingTop="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/otp_list_add"
@@ -21,5 +25,13 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_add_24" />
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:drawableTop="@drawable/issuer_default_36"
+        android:text="There no accounts start by adding one." />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import ca.gabrielcastro.openotp.R
 import ca.gabrielcastro.openotp.app.App
@@ -74,6 +75,16 @@ class OtpListActivity : BaseActivity(), ListContract.View {
             presenter.addNewTotp()
         }
         sb.show()
+    }
+
+    override fun showEmptyView(showEmpty: Boolean) {
+        if (showEmpty) {
+            otp_list_recycler.visibility = View.GONE
+            empty_view.visibility = View.VISIBLE
+        } else {
+            otp_list_recycler.visibility = View.VISIBLE
+            empty_view.visibility = View.GONE
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

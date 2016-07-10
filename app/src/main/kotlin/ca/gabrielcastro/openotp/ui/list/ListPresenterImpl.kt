@@ -18,6 +18,7 @@ internal class ListPresenterImpl @Inject constructor(
 
     override fun init(view: ListContract.View) {
         this.view = view
+        this.view.showEmptyView(false)
     }
 
     override fun pause() {
@@ -37,6 +38,7 @@ internal class ListPresenterImpl @Inject constructor(
                 }
                 .subscribe {
                     view.showItems(it)
+                    this.view.showEmptyView(it.size == 0)
                 }
     }
 

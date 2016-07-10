@@ -10,6 +10,7 @@ interface ListContract {
         fun showDetailForId(id: String)
         fun startScanning()
         fun showTemporaryMessage(text: CharSequence)
+        fun showEmptyView(showEmpty: Boolean)
     }
 
     interface Presenter {
