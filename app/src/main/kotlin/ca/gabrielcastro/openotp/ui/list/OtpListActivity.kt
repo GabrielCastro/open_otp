@@ -3,10 +3,10 @@ package ca.gabrielcastro.openotp.ui.list
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import ca.gabrielcastro.openotp.R
 import ca.gabrielcastro.openotp.app.App
 import ca.gabrielcastro.openotp.ext.start
@@ -17,6 +17,7 @@ import ca.gabrielcastro.openotp.ui.scan.BarcodeScanActivity
 import kotlinx.android.synthetic.main.opt_list_item_card_content.view.*
 import kotlinx.android.synthetic.main.otp_list_activity.*
 import kotlinx.android.synthetic.main.otp_list_item.view.*
+
 import java.util.*
 import javax.inject.Inject
 
@@ -105,6 +106,8 @@ private class Holder(
             field = value
             itemView.otp_item_issuer.text = field?.issuer
             itemView.otp_item_account.text = field?.account
+            val iconRes = field?.iconRes ?: R.drawable.issuer_default_36
+            itemView.otp_item_icon.setImageDrawable(ContextCompat.getDrawable(itemView.context, iconRes))
         }
 
 }

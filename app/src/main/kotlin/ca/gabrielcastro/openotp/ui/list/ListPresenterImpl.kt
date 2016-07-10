@@ -1,5 +1,6 @@
 package ca.gabrielcastro.openotp.ui.list
 
+import ca.gabrielcastro.openotp.R
 import ca.gabrielcastro.openotp.db.Database
 import ca.gabrielcastro.openotp.rx.ioAndMain
 import rx.Subscription
@@ -27,7 +28,12 @@ internal class ListPresenterImpl @Inject constructor(
         listSub = database.list()
                 .ioAndMain()
                 .map {
-                    it.map { ListContract.ListItem(it.uuid, it.userIssuer, it.userAccountName) }
+                    it.map {
+                        val iconRes = iconForIssuer(it.userIssuer)
+                                ?: iconForIssuer(it.issuer)
+                                ?: R.drawable.issuer_default_36
+                        ListContract.ListItem(it.uuid, it.userIssuer, it.userAccountName, iconRes)
+                    }
                 }
                 .subscribe {
                     view.showItems(it)
@@ -49,4 +55,12 @@ internal class ListPresenterImpl @Inject constructor(
         view.showTemporaryMessage("Invalid Code Scanned")
     }
 
+}
+
+val iconMap = listOf(
+        Regex(".*Google.*", RegexOption.IGNORE_CASE) to R.drawable.issuer_google_36
+)
+
+fun iconForIssuer(issuerName: String) : Int? {
+    return iconMap.find { it.first.matches(issuerName) }?.second
 }

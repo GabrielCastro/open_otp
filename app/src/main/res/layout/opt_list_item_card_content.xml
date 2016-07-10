@@ -8,7 +8,7 @@
     tools:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/otp_item_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintLeft_toRightOf="@+id/otp_item_icon"
         tools:text="john@google.com" />
 
     <android.support.constraint.Guideline
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintCenterY_toCenterY="@id/imageView"
+        app:layout_constraintCenterY_toCenterY="@id/otp_item_icon"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="20dp" />
 
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintLeft_toRightOf="@+id/otp_item_icon"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
         tools:text="Google Inc." />
 

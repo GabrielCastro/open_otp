@@ -1,5 +1,8 @@
 package ca.gabrielcastro.openotp.ui.list
 
+import android.support.annotation.DrawableRes
+
+
 interface ListContract {
 
     interface View {
@@ -18,7 +21,13 @@ interface ListContract {
         fun invalidCodeScanned()
     }
 
-    data class ListItem(val id: String, val issuer: String, val account: String)
+    data class ListItem(
+            val id: String,
+            val issuer: String,
+            val account: String,
+            @DrawableRes
+            val iconRes: Int
+    )
 
 }
 
