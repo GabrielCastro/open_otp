@@ -4,10 +4,12 @@ def sampleFileName = "$rootProject.projectDir/keys/_key_store_passwords.sample.g
 def passwordFile = new File(passwordFileName)
 
 if (passwordFile.exists()) {
+    logger.info("found password file")
+
     apply from: passwordFile
 } else {
-    logger.info("Unable to find keystore password file")
-    logger.info("File expected at:\n\t${sampleFileName}\n sample file at:\n\t${passwordFileName}")
+    logger.error("Unable to find keystore password file")
+    logger.error("File expected at:\n\t${sampleFileName}\n sample file at:\n\t${passwordFileName}")
     android {
         buildTypes {
             release {
